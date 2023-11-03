@@ -1,0 +1,51 @@
+---
+title: "web scraping"
+format:
+  html:
+    code-fold: true
+jupyter: python3
+---
+
+## parsing HTML avancé 
+
+L'expression "Advanced HTML Parsing" en anglais, fait référence à des techniques de traitement du HTML qui vont au-delà des opérations de base comme récupérer des tags ou des attributs spécifiques. Il s'agit de travailler avec des documents HTML pour en extraire des informations de manière plus complexe et plus précise. Voici quelques aspects que l'on pourrait associer à un parsing HTML avancé :
+
+1. **Utilisation de Parseurs Robustes :** Utilisation de bibliothèques puissantes comme `lxml` ou `html5lib` qui sont mieux à même de gérer du HTML mal formé.
+
+2. **Expression XPath et CSS Selectors :** Utilisation d'expressions XPath ou de sélecteurs CSS pour des requêtes complexes et très spécifiques dans le document.
+
+3. **Gestion des Espaces de Noms :** Capacité à gérer les espaces de noms XML dans les documents XHTML.
+
+4. **Traitement des Scripts et des Formulaires :** Automatisation de l'interaction avec des scripts JavaScript ou des formulaires présents dans la page HTML.
+
+5. **Extraction Conditionnelle :** Extraction d'informations basée sur des conditions spécifiques ou des patterns complexes (par exemple, des éléments qui changent dynamiquement).
+
+6. **Récupération de Données Dynamiques :** Extraction de données générées dynamiquement par des scripts côté client.
+
+7. **Correction de HTML :** Capable de nettoyer et de corriger du code HTML pour le rendre conforme aux standards.
+
+En bref, le parsing HTML avancé implique une compréhension profonde de la structure du HTML et des méthodes plus sophistiquées pour extraire les données souhaitées, souvent en utilisant des bibliothèques spécialisées et des outils de développement web.
+
+Revenons sur le BeautifulSoup et voyons comment il peut nous aider à faire du parsing HTML avancé.
+
+Considérons le code ci-dessous :
+
+
+
+```{python}
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+html = urlopen('http://www.pythonscraping.com/pages/warandpeace.html')
+bs = BeautifulSoup(html.read(), 'html.parser')
+```
+
+Ce code permet d'inspecter entièrement la page html. Nous pouvons utiliser ce code et la function find_all() pour extraire des informations spécifiques de la page. Par exemple, si nous voulons extraire la liste des noms propres en selectionnant uniquement le texte entre `<span class="green"></span>` nous pouvons utiliser le code suivant :
+
+```{python}
+
+nameList = bs.findAll('span', {'class':'green'})
+
+for name in nameList:
+    print(name.get_text())
+
+```
